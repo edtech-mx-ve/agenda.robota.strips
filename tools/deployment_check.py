@@ -129,7 +129,11 @@ def check_forbidden_files() -> CheckResult:
 
 def check_fastapi_app() -> CheckResult:
     """Comprueba que la aplicación FastAPI tenga las rutas esenciales."""
-    paths = {route.path for route in app.routes}
+    paths = {
+        path
+        for route in app.routes
+        if (path := getattr(route, "path", None)) is not None
+    }
     required = {"/", "/api/health", "/api/scenario", "/api/plan"}
     missing = required - paths
 

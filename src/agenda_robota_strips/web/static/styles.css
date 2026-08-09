@@ -721,3 +721,25 @@ main,
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+
+.help-instructions {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.8rem;
+  background: white;
+}
+
+.help-instructions h3 {
+  margin: 0 0 0.75rem;
+}
+
+.help-instructions ol {
+  margin: 0;
+  padding-left: 1.35rem;
+}
+
+.help-instructions li + li {
+  margin-top: 0.55rem;
+}

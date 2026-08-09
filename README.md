@@ -670,3 +670,23 @@ Proyecto desarrollado para la asignatura **Razonamiento Inteligente** de la
 
 La finalidad es demostrar de forma ejecutable y explicable cómo un sistema STRIPS
 puede representar y resolver un problema básico de movimiento de un robot.
+
+
+## Instrucciones de uso integradas
+
+La sección **Ayuda** de la aplicación incluye instrucciones numeradas para:
+
+1. seleccionar inicio y meta;
+2. generar el plan STRIPS;
+3. revisar la ruta;
+4. avanzar acción por acción;
+5. reproducir o pausar;
+6. reiniciar la simulación.
+
+
+## Compatibilidad de validación FastAPI
+
+La comprobación de despliegue inspecciona únicamente las rutas que exponen el
+atributo `path`. Esto mantiene la validación compatible con versiones recientes
+de FastAPI/Starlette que pueden incluir objetos internos de router sin ese
+atributo.

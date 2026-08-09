@@ -136,3 +136,15 @@ def test_root_includes_help_section() -> None:
     assert "Genera el plan" in response.text
     assert "Interpreta STRIPS" in response.text
     assert "Simula paso a paso" in response.text
+
+
+def test_root_includes_usage_instructions() -> None:
+    response = client.get("/")
+
+    assert response.status_code == 200
+    assert "Instrucciones de uso" in response.text
+    assert "Selecciona Inicio y Meta" in response.text
+    assert "Pulsa Generar plan STRIPS" in response.text
+    assert "Usa Avanzar" in response.text
+    assert "Usa Reproducir o Pausar" in response.text
+    assert "Usa Reiniciar" in response.text
