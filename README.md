@@ -1,11 +1,11 @@
 # Agenda Robota STRIPS
 
 **Versión estable:** 1.0.0  
-**Estado:** estable, validada localmente y preparada para despliegue  
+**Estado:** estable, validada y desplegada públicamente en Render  
 **Aplicación principal:** `agenda_robota_strips.main:app`  
 **Interfaz local:** `http://127.0.0.1:8000/`  
 **API interactiva:** `http://127.0.0.1:8000/docs`  
-**Aplicación pública:** pendiente de publicación  
+**Aplicación pública:** https://agenda-robota-strips.onrender.com/  
 **Repositorio:** https://github.com/edtech-mx-ve/agenda.robota.strips  
 **Secretos requeridos:** ninguno
 
@@ -532,6 +532,36 @@ http://127.0.0.1:8000/
 
 Consulte `DEPLOYMENT.md`.
 
+
+## Despliegue público
+
+Agenda Robota STRIPS se encuentra desplegada en **Render** como Web Service.
+
+Aplicación pública:
+
+```text
+https://agenda-robota-strips.onrender.com/
+```
+
+Repositorio oficial:
+
+```text
+https://github.com/edtech-mx-ve/agenda.robota.strips
+```
+
+Configuración utilizada en Render:
+
+```text
+Runtime: Python 3
+Branch: main
+Build Command: pip install .
+Start Command: uvicorn agenda_robota_strips.main:app --host 0.0.0.0 --port $PORT
+Instance Type: Free
+```
+
+La aplicación utiliza HTTPS proporcionado por Render y no requiere secretos ni
+variables sensibles para su operación actual.
+
 ## Actualización
 
 Repositorio oficial:
@@ -580,7 +610,7 @@ La reversión conserva la trazabilidad del historial.
 - No se controlan motores físicos.
 - No se utiliza PDDL externo.
 - BFS no escala eficientemente a dominios de gran tamaño.
-- La aplicación pública todavía no ha sido desplegada.
+- El plan gratuito de Render puede suspender temporalmente la instancia cuando no recibe tráfico.
 
 ## Relación con la unidad académica
 
