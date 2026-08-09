@@ -125,3 +125,14 @@ def test_static_javascript_keeps_viewport_stable() -> None:
     assert "scrollIntoView" not in response.text
     assert "preserveViewportDuringControl" in response.text
     assert "window.scrollTo(scrollX, scrollY)" in response.text
+
+
+def test_root_includes_help_section() -> None:
+    response = client.get("/")
+
+    assert response.status_code == 200
+    assert "¿Qué es la planificación automática STRIPS?" in response.text
+    assert "Define inicio y meta" in response.text
+    assert "Genera el plan" in response.text
+    assert "Interpreta STRIPS" in response.text
+    assert "Simula paso a paso" in response.text

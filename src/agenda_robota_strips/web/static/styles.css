@@ -663,3 +663,61 @@ main,
 .trace-panel {
   overflow-anchor: none;
 }
+
+
+/* Ayuda breve y metódica */
+.help-panel {
+  grid-column: 1 / -1;
+}
+
+.help-steps {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.help-steps article {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.8rem;
+  align-items: start;
+  padding: 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 0.8rem;
+  background: #f8fafc;
+}
+
+.help-steps h3 {
+  margin: 0 0 0.25rem;
+  font-size: 1rem;
+}
+
+.help-steps p {
+  margin: 0;
+}
+
+.help-number {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: white;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.help-formula {
+  margin: 1rem 0 0;
+  padding: 0.85rem 1rem;
+  border-left: 4px solid var(--accent);
+  border-radius: 0.5rem;
+  background: var(--surface-soft);
+}
+
+@media (min-width: 760px) {
+  .help-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

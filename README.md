@@ -300,7 +300,8 @@ La interfaz incluye:
 - panel de trazabilidad;
 - explicación de `PRE`, `ADD` y `DEL`;
 - estado antes y después;
-- regla de transición STRIPS.
+- regla de transición STRIPS;
+- sección de ayuda breve y metódica sobre planificación automática y uso de la app.
 
 Los controles de simulación mantienen estable la posición visual de la página.
 

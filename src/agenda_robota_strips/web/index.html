@@ -174,6 +174,72 @@
       </div>
     </section>
 
+
+<section class="panel help-panel" aria-labelledby="help-title">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">Ayuda</p>
+      <h2 id="help-title">¿Qué es la planificación automática STRIPS?</h2>
+    </div>
+    <span class="badge">Guía rápida</span>
+  </div>
+
+  <p>
+    La planificación automática busca una secuencia de acciones que transforme
+    un <strong>estado inicial</strong> en un <strong>estado objetivo</strong>.
+    En STRIPS, cada acción se describe mediante precondiciones y efectos.
+  </p>
+
+  <div class="help-steps">
+    <article>
+      <span class="help-number">1</span>
+      <div>
+        <h3>Define inicio y meta</h3>
+        <p>Selecciona la celda donde inicia el robot y la celda objetivo.</p>
+      </div>
+    </article>
+
+    <article>
+      <span class="help-number">2</span>
+      <div>
+        <h3>Genera el plan</h3>
+        <p>
+          El sistema evalúa las acciones posibles y usa BFS para encontrar
+          una ruta válida de movimientos.
+        </p>
+      </div>
+    </article>
+
+    <article>
+      <span class="help-number">3</span>
+      <div>
+        <h3>Interpreta STRIPS</h3>
+        <p>
+          <strong>PRE</strong> indica lo que debe cumplirse,
+          <strong>ADD</strong> lo que se agrega y
+          <strong>DEL</strong> lo que se elimina del estado.
+        </p>
+      </div>
+    </article>
+
+    <article>
+      <span class="help-number">4</span>
+      <div>
+        <h3>Simula paso a paso</h3>
+        <p>
+          Usa Reproducir, Pausar, Avanzar o Reiniciar para observar cómo
+          cambia el estado del robot hasta alcanzar la meta.
+        </p>
+      </div>
+    </article>
+  </div>
+
+  <p class="help-formula">
+    Regla de transición:
+    <strong>S′ = (S − DEL) ∪ ADD</strong>
+  </p>
+</section>
+
     <section class="panel theory-panel" aria-labelledby="strips-title">
       <p class="eyebrow">Modelo utilizado</p>
       <h2 id="strips-title">5. Regla de transición</h2>

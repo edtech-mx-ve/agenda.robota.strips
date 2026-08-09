@@ -101,3 +101,22 @@ git status
 ```
 
 No deben publicarse archivos listados en `.gitignore`.
+
+
+## Despliegue público actual
+
+Proveedor: **Render**
+
+```text
+https://agenda-robota-strips.onrender.com/
+```
+
+Configuración:
+
+```text
+Runtime: Python 3
+Branch: main
+Build Command: pip install .
+Start Command: uvicorn agenda_robota_strips.main:app --host 0.0.0.0 --port $PORT
+Instance Type: Free
+```
