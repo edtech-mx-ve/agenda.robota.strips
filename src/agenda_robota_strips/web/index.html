@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta
+    name="description"
+    content="Agenda Robota STRIPS: simulador interactivo 4x4 de planificación automática con STRIPS."
+  >
+  <title>Agenda Robota STRIPS · Versión 1.0.0</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <script type="module" src="/static/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <header class="site-header">
+    <div class="container">
+      <p class="eyebrow">Planificación automática · STRIPS · Python</p>
+
+      <div class="brand" aria-label="Marca principal de la aplicación">
+        <img
+          src="/static/agenda-robota-logo.png"
+          alt="Logo de Agenda Robota STRIPS"
+          class="brand-logo"
+        >
+        <h1>Agenda Robota STRIPS</h1>
+      </div>
+
+      <p class="lead">
+        Simula, paso a paso, cómo un robot alcanza una meta dentro de una
+        cuadrícula 4×4 aplicando acciones STRIPS.
+      </p>
+    </div>
+  </header>
+
+  <main id="contenido" class="container app-layout">
+    <section class="panel" aria-labelledby="config-title">
+      <h2 id="config-title">1. Configurar planificación</h2>
+
+      <form id="plan-form" novalidate>
+        <div class="field">
+          <label for="start-zone">Celda inicial</label>
+          <select id="start-zone" name="start" required>
+            <option value="">Cargando celdas…</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="goal-zone">Celda objetivo</label>
+          <select id="goal-zone" name="goal" required>
+            <option value="">Cargando celdas…</option>
+          </select>
+        </div>
+
+        <button id="plan-button" type="submit">Generar plan STRIPS</button>
+      </form>
+
+      <div id="status" class="status" role="status" aria-live="polite">
+        Inicializando escenario…
+      </div>
+    </section>
+
+    <section class="panel map-panel" aria-labelledby="map-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Escenario</p>
+          <h2 id="map-title">2. Simulación 4×4</h2>
+        </div>
+        <span id="simulation-badge" class="badge muted">Sin plan</span>
+      </div>
+
+      <div
+        id="grid-map"
+        class="grid-map"
+        role="grid"
+        aria-label="Mapa de navegación de 16 celdas"
+      ></div>
+
+      <div class="legend" aria-label="Leyenda del mapa">
+        <span><i class="legend-dot start-dot"></i> Inicio</span>
+        <span><i class="legend-dot route-dot"></i> Ruta</span>
+        <span><i class="legend-dot robot-dot"></i> Robot</span>
+        <span><i class="legend-dot goal-dot"></i> Meta</span>
+      </div>
+
+      <div class="simulation-controls" aria-label="Controles de simulación">
+        <button id="play-button" type="button" disabled>Reproducir</button>
+        <button id="pause-button" type="button" class="secondary" disabled>Pausar</button>
+        <button id="next-button" type="button" class="secondary" disabled>Avanzar</button>
+        <button id="reset-button" type="button" class="secondary" disabled>Reiniciar</button>
+      </div>
+
+      <p id="step-counter" class="step-counter" aria-live="polite">
+        Paso 0 de 0
+      </p>
+    </section>
+
+    <section class="panel result-panel" aria-labelledby="result-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Resultado</p>
+          <h2 id="result-title">3. Plan generado</h2>
+        </div>
+        <span id="goal-state" class="badge muted">Pendiente</span>
+      </div>
+
+      <div id="result-empty" class="empty-state">
+        Genera un plan para visualizar las acciones STRIPS.
+      </div>
+
+      <div id="result-content" hidden>
+        <p id="result-message" class="result-message"></p>
+
+        <dl class="metrics">
+          <div>
+            <dt>Movimientos</dt>
+            <dd id="metric-moves">0</dd>
+          </div>
+          <div>
+            <dt>Estados expandidos</dt>
+            <dd id="metric-expanded">0</dd>
+          </div>
+        </dl>
+
+        <ol id="plan-list" class="plan-list"></ol>
+      </div>
+    </section>
+
+    <section class="panel trace-panel" aria-labelledby="trace-title">
+      <p class="eyebrow">Trazabilidad STRIPS</p>
+      <h2 id="trace-title">4. Acción actual</h2>
+
+      <div id="trace-empty" class="empty-state">
+        Avanza la simulación para inspeccionar PRE, ADD y DEL.
+      </div>
+
+      <div id="trace-content" hidden>
+        <p class="action-name">
+          <span class="muted-label">Acción:</span>
+          <code id="trace-action">—</code>
+        </p>
+
+        <div class="trace-grid">
+          <article>
+            <h3>PRE</h3>
+            <ul id="trace-pre"></ul>
+          </article>
+
+          <article>
+            <h3>ADD</h3>
+            <ul id="trace-add"></ul>
+          </article>
+
+          <article>
+            <h3>DEL</h3>
+            <ul id="trace-del"></ul>
+          </article>
+        </div>
+
+        <div class="state-transition">
+          <div>
+            <span>Estado antes</span>
+            <code id="state-before">—</code>
+          </div>
+
+          <span class="transition-arrow" aria-hidden="true">→</span>
+
+          <div>
+            <span>Estado después</span>
+            <code id="state-after">—</code>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel theory-panel" aria-labelledby="strips-title">
+      <p class="eyebrow">Modelo utilizado</p>
+      <h2 id="strips-title">5. Regla de transición</h2>
+
+      <p>
+        Una acción es aplicable cuando sus precondiciones se encuentran en el
+        estado actual. Después, STRIPS elimina los efectos DEL y agrega los ADD.
+      </p>
+
+      <p class="formula">
+        <strong>S′ = (S − DEL) ∪ ADD</strong>
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <strong>Agenda Robota STRIPS</strong>
+      <span> · v1.0.0 · simulación interactiva STRIPS 4×4</span>
+    </div>
+  </footer>
+</body>
+</html>
